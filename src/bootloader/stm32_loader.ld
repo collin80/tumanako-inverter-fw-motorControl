@@ -1,7 +1,7 @@
 /*
- * This file is part of the tumanako_vc project.
+ * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2011 Johannes Huebner <dev@johanneshuebner.com>
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,24 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NULL
-#define NULL 0L
-#endif
+/* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
 
-#ifdef __cplusplus
-extern "C"
+/* Define memory regions. */
+MEMORY
 {
-#endif
-
-int my_strcmp(const char *str1, const char *str2);
-void my_strcat(char *str1, const char *str2);
-int my_strlen(const char *str);
-const char *my_strchr(const char *str, const char c);
-int my_ltoa(char *buf, int val, int base);
-long my_atoi(const char *str);
-char *my_trim(char *str);
-void memcpy32(int* target, int *source, int length);
-
-#ifdef __cplusplus
+	rom (rx)    : ORIGIN = 0x08000000, LENGTH = 4K
+	ram (rwx)   : ORIGIN = 0x20000000, LENGTH = 20K
 }
-#endif
+
+
+/* Include the common ld script from libopenstm32. */
+INCLUDE libopencm3_stm32f1.ld
+
